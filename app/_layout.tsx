@@ -1,10 +1,10 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { useColorScheme } from '@/presentation/hooks/useColorScheme';
+import PermissionCheckerProvider from '@/presentation/providers/PermissionCheckerProvider';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -19,11 +19,17 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+      <PermissionCheckerProvider>
+        <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name='loading/index' options={{ animation: 'none'}}/>
+        <Stack.Screen name='map/index' options={{ animation: 'fade'}}/>
+        <Stack.Screen name='permissions/index' options={{ animation: 'fade'}}/>
       </Stack>
-      <StatusBar style="auto" />
+      </PermissionCheckerProvider>
     </ThemeProvider>
   );
 }
