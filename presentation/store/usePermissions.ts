@@ -1,3 +1,5 @@
+// El archivo se debe llamar usePermissionsStore.ts
+
 import { checkLocationPermission, requestLocationPermission } from '@/core/actions/permissions/location';
 import { PermissionStatus } from '@/infrastructure/interfaces/location';
 import { create } from 'zustand';
